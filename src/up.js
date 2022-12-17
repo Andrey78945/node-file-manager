@@ -1,3 +1,9 @@
-export const up = function (currentFolder) {
-    return currentFolder;
+import { chdir } from 'node:process';
+
+export const up = function () {
+    try {
+        chdir('..');
+    } catch (err) {
+        console.error(`chdir: ${err}`);
+    }
 }

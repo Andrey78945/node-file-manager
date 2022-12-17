@@ -1,6 +1,6 @@
 import { homedir } from 'node:os';
 import { dirname, join } from 'node:path';
-import { chdir, stdout, stdin } from 'node:process';
+import { chdir, stdout, stdin, exit, cwd, nextTick } from 'node:process';
 import { fileURLToPath } from 'node:url';
 import readline from 'readline';
 import { up } from './src/up.js';
@@ -20,7 +20,7 @@ if (args.length = 1) {
         userName = temp[1];
         console.log(`Welcome to the File Manager, ${userName}!`);
         chdir(homedir());
-        currentFolder = homedir();
+        currentFolder = cwd();
         startManager();
     }
 }
@@ -43,7 +43,7 @@ function startManager() {
                 stdout.write(`Thank you for using File Manager, ${userName}, goodbye!\n`);
                 break;
             case 'up':
-                currentFolder = up(currentFolder);
+                currentFolder = up();
                 showCurrentFolder();
                 break;
             case 'cd':
@@ -88,16 +88,19 @@ function startManager() {
         }
     });
 
-    // process.on('SIGINT', () => {
-    //     stdout.write(`Thank you for using File Manager, ${userName}, goodbye!\n`);
-    //     setTimeout(process.exit(), 100);
-    //     //rl.close();
-    // });
+    if (process.platform === "win32") {
+        rl.on('SIGINT', () => process.emit('SIGINT'))
+    }
+
+    process.on('SIGINT', () => {
+        stdout.write(`Thank you for using File Manager, ${userName}, goodbye!\n`);
+        nextTick(() => exit());
+    });
 
 }
 
 function showCurrentFolder() {
-    const folderPath = dirname(fileURLToPath(import.meta.url));
-    console.log(`You are currently in ${currentFolder}`);
+    const folderPath = cwd();
+    console.log(`You are currently in ${folderPath}`);
 }
 
