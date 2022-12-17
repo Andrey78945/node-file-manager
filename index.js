@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import readline from 'readline';
 import { up } from './src/up.js';
 import { cd } from './src/cd.js';
+import { ls } from './src/ls.js';
 
 // const folderPath = dirname(fileURLToPath(import.meta.url));
 // const folderName = "files";
@@ -45,15 +46,12 @@ function startManager() {
                 break;
             case 'up':
                 up();
-                showCurrentFolder();
                 break;
             case 'cd':
-                console.log(arg[0])
                 cd(arg[0]);
-                showCurrentFolder();
                 break;
             case 'ls':
-                console.log('ls');
+                ls();
                 break;
             case 'cat':
                 console.log('cat');
@@ -89,6 +87,7 @@ function startManager() {
                 console.log('Invalid input\n');
                 break;
         }
+        showCurrentFolder();
     });
 
     if (process.platform === "win32") {
