@@ -4,6 +4,7 @@ import { chdir, stdout, stdin, exit, cwd, nextTick } from 'node:process';
 import { fileURLToPath } from 'node:url';
 import readline from 'readline';
 import { up } from './src/up.js';
+import { cd } from './src/cd.js';
 
 // const folderPath = dirname(fileURLToPath(import.meta.url));
 // const folderName = "files";
@@ -43,11 +44,13 @@ function startManager() {
                 stdout.write(`Thank you for using File Manager, ${userName}, goodbye!\n`);
                 break;
             case 'up':
-                currentFolder = up();
+                up();
                 showCurrentFolder();
                 break;
             case 'cd':
-                console.log('cd');
+                console.log(arg[0])
+                cd(arg[0]);
+                showCurrentFolder();
                 break;
             case 'ls':
                 console.log('ls');
