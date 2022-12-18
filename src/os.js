@@ -4,7 +4,7 @@ export const os = (arg) => {
     switch (arg) {
         case '--EOL':
             const endOfLine = EOL;
-            if (endOfLine === '\n') console.log(`The Linux end of line is \/n`);
+            if (endOfLine === '\n') console.log(`The Linux end of line is \\n`);
             else if (endOfLine === '\r\n') console.log(`The Windows end of line is \\r\\n`);
             break;
         case '--cpus':

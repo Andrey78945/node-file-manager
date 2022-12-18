@@ -13,10 +13,9 @@ import { compress } from './src/compress.js';
 import { decompress } from './src/decompress.js';
 import { hash } from './src/hash.js';
 import { os } from './src/os.js';
+import { mv } from './src/mv.js';
 
-let currentFolder;
 let userName;
-const commands = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm', 'os', 'hash', 'compress', 'decompress'];
 
 const args = process.argv.slice(2);
 if (args.length = 1) {
@@ -92,11 +91,15 @@ function startManager() {
                 if (!checkArguments(arg, 2)) {
                     console.log('Invalid input\n');
                 } else {
-                    cp(arg[0], arg[1]);
+                    await cp(arg[0], arg[1]);
                 }
                 break;
             case 'mv':
-                console.log('mv');
+                if (!checkArguments(arg, 2)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await mv(arg[0], arg[1]);
+                }
                 break;
             case 'rm':
                 if (!checkArguments(arg, 1)) {
@@ -113,7 +116,7 @@ function startManager() {
                 if (!checkOsArguments(arg[0])) {
                     console.log('Invalid input\n');
                 } else {
-                    await os(arg[0]);
+                    os(arg[0]);
                 }
                 break;
             case 'hash':
