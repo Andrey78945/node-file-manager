@@ -1,10 +1,9 @@
 import { createReadStream, createWriteStream } from 'node:fs';
-import { createGzip } from 'node:zlib';
 
-export const compress = async (fileFromPath, fileToPath) => {
+export const cp = (from, to) => {
     try {
-        const stream = new createReadStream(fileFromPath);
-        const outStream = createWriteStream(fileToPath);
+        const stream = new createReadStream(from);
+        const outStream = createWriteStream(to);
         outStream.on('error', function (err) {
             console.error('Invalid input of destination');
             console.error(`Operation failed`);
@@ -14,7 +13,7 @@ export const compress = async (fileFromPath, fileToPath) => {
             console.error('Invalid input of source');
             console.error(`Operation failed`);
         });
-        stream.pipe(createGzip()).pipe(outStream);
+        stream.pipe(outStream);
     } catch (err) {
         console.error(`Operation failed`);
     }

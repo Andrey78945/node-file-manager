@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import readline from 'readline';
 import { up } from './src/up.js';
 import { cd } from './src/cd.js';
+import { cp } from './src/cp.js';
 import { ls } from './src/ls.js';
 import { cat } from './src/cat.js';
 import { add } from './src/add.js';
@@ -95,7 +96,11 @@ function startManager() {
                 }
                 break;
             case 'cp':
-                console.log('cp');
+                if (!checkArguments(arg, 2)) {
+                    console.log('Invalid input\n');
+                } else {
+                    cp(arg[0], arg[1]);
+                }
                 break;
             case 'mv':
                 console.log('mv');
@@ -146,7 +151,6 @@ function startManager() {
         stdout.write(`Thank you for using File Manager, ${userName}, goodbye!\n`);
         nextTick(() => exit());
     });
-
 }
 
 function showCurrentFolder() {
