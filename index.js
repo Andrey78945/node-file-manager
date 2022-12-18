@@ -10,6 +10,8 @@ import { cat } from './src/cat.js';
 import { add } from './src/add.js';
 import { rn } from './src/rn.js';
 import { rm } from './src/rm.js';
+import { hash } from './src/hash.js';
+
 
 // const folderPath = dirname(fileURLToPath(import.meta.url));
 // const folderName = "files";
@@ -107,7 +109,11 @@ function startManager() {
                 console.log('os');
                 break;
             case 'hash':
-                console.log('hash');
+                if (!checkArguments(arg, 1)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await hash(arg[0]);
+                }
                 break;
             case 'compress':
                 console.log('compress');
