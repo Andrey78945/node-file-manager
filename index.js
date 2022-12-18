@@ -1,7 +1,5 @@
 import { homedir } from 'node:os';
-import { dirname, join } from 'node:path';
 import { chdir, stdout, stdin, exit, cwd, nextTick } from 'node:process';
-import { fileURLToPath } from 'node:url';
 import readline from 'readline';
 import { up } from './src/up.js';
 import { cd } from './src/cd.js';
@@ -14,12 +12,8 @@ import { rm } from './src/rm.js';
 import { compress } from './src/compress.js';
 import { decompress } from './src/decompress.js';
 import { hash } from './src/hash.js';
+import { os } from './src/os.js';
 
-
-// const folderPath = dirname(fileURLToPath(import.meta.url));
-// const folderName = "files";
-// const fileName = "fileToRead.txt";
-// const filePath = join(folderPath, folderName, fileName);
 let currentFolder;
 let userName;
 const commands = ['up', 'cd', 'ls', 'cat', 'add', 'rn', 'cp', 'mv', 'rm', 'os', 'hash', 'compress', 'decompress'];
@@ -31,7 +25,6 @@ if (args.length = 1) {
         userName = temp[1];
         console.log(`Welcome to the File Manager, ${userName}!`);
         chdir(homedir());
-        currentFolder = cwd();
         startManager();
     }
 }
@@ -113,7 +106,15 @@ function startManager() {
                 }
                 break;
             case 'os':
-                console.log('os');
+                if (!checkArguments(arg, 1)) {
+                    console.log('Invalid input\n');
+                    break;
+                }
+                if (!checkOsArguments(arg[0])) {
+                    console.log('Invalid input\n');
+                } else {
+                    await os(arg[0]);
+                }
                 break;
             case 'hash':
                 if (!checkArguments(arg, 1)) {
@@ -160,5 +161,11 @@ function showCurrentFolder() {
 
 function checkArguments(arg, size) {
     if (arg.length === size) return true;
+    return false;
+}
+
+function checkOsArguments(arg) {
+    const parametrs = ['--EOL', '--cpus', '--homedir', '--architecture']
+    if (parametrs.includes(arg)) return true;
     return false;
 }
