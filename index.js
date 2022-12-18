@@ -10,6 +10,8 @@ import { cat } from './src/cat.js';
 import { add } from './src/add.js';
 import { rn } from './src/rn.js';
 import { rm } from './src/rm.js';
+import { compress } from './src/compress.js';
+import { decompress } from './src/decompress.js';
 import { hash } from './src/hash.js';
 
 
@@ -116,10 +118,18 @@ function startManager() {
                 }
                 break;
             case 'compress':
-                console.log('compress');
+                if (!checkArguments(arg, 2)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await compress(arg[0], arg[1]);
+                }
                 break;
-            case 'up':
-                console.log('decompress');
+            case 'decompress':
+                if (!checkArguments(arg, 2)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await decompress(arg[0], arg[1]);
+                }
                 break;
             default:
                 console.log('Invalid input\n');
