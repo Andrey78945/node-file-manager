@@ -8,6 +8,8 @@ import { cd } from './src/cd.js';
 import { ls } from './src/ls.js';
 import { cat } from './src/cat.js';
 import { add } from './src/add.js';
+import { rn } from './src/rn.js';
+import { rm } from './src/rm.js';
 
 // const folderPath = dirname(fileURLToPath(import.meta.url));
 // const folderName = "files";
@@ -82,7 +84,11 @@ function startManager() {
                 }
                 break;
             case 'rn':
-                console.log('rn');
+                if (!checkArguments(arg, 2)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await rn(arg[0], arg[1]);
+                }
                 break;
             case 'cp':
                 console.log('cp');
@@ -91,7 +97,11 @@ function startManager() {
                 console.log('mv');
                 break;
             case 'rm':
-                console.log('rm');
+                if (!checkArguments(arg, 1)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await rm(arg[0]);
+                }
                 break;
             case 'os':
                 console.log('os');
