@@ -1,8 +1,11 @@
-import { cpus, homedir, userInfo } from 'os';
+import { EOL, arch, cpus, homedir, userInfo } from 'os';
 
 export const os = (arg) => {
     switch (arg) {
         case '--EOL':
+            const endOfLine = EOL;
+            if (endOfLine === '\n') console.log(`The Linux end of line is \/n`);
+            else if (endOfLine === '\r\n') console.log(`The Windows end of line is \\r\\n`);
             break;
         case '--cpus':
             const cores = cpus();
@@ -15,6 +18,7 @@ export const os = (arg) => {
             console.log(`The home directory is ${homedir()}`);
             break;
         case '--architecture':
+            console.log(`The architecture is ${arch()}`);
             break;
         case '--username':
             try {
