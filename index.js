@@ -7,6 +7,7 @@ import { up } from './src/up.js';
 import { cd } from './src/cd.js';
 import { ls } from './src/ls.js';
 import { cat } from './src/cat.js';
+import { add } from './src/add.js';
 
 // const folderPath = dirname(fileURLToPath(import.meta.url));
 // const folderName = "files";
@@ -74,7 +75,11 @@ function startManager() {
                 }
                 break;
             case 'add':
-                console.log('add');
+                if (!checkArguments(arg, 1)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await add(arg[0]);
+                }
                 break;
             case 'rn':
                 console.log('rn');
