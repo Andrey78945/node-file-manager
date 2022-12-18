@@ -165,7 +165,7 @@ function checkArguments(arg, size) {
 }
 
 function checkOsArguments(arg) {
-    const parametrs = ['--EOL', '--cpus', '--homedir', '--architecture']
+    const parametrs = ['--EOL', '--cpus', '--homedir', '--architecture', '--username']
     if (parametrs.includes(arg)) return true;
     return false;
 }

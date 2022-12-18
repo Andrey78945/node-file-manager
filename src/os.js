@@ -1,4 +1,4 @@
-import { cpus } from 'os';
+import { cpus, homedir, userInfo } from 'os';
 
 export const os = (arg) => {
     switch (arg) {
@@ -12,8 +12,16 @@ export const os = (arg) => {
             });
             break;
         case '--homedir':
+            console.log(`The home directory is ${homedir()}`);
             break;
         case '--architecture':
+            break;
+        case '--username':
+            try {
+                console.log(`The current system user name is ${userInfo().username}`);
+            } catch (err) {
+                console.log("there is not a username");
+            }
             break;
     }
 }
