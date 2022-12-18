@@ -6,6 +6,7 @@ import readline from 'readline';
 import { up } from './src/up.js';
 import { cd } from './src/cd.js';
 import { ls } from './src/ls.js';
+import { cat } from './src/cat.js';
 
 // const folderPath = dirname(fileURLToPath(import.meta.url));
 // const folderName = "files";
@@ -35,7 +36,7 @@ function startManager() {
         output: stdout,
     });
 
-    rl.on('line', line => {
+    rl.on('line', async line => {
         const comandWithArguments = line.trim().split(' ');
         const [command, arg] = [comandWithArguments[0], comandWithArguments.slice(1)];
 
@@ -45,16 +46,32 @@ function startManager() {
                 stdout.write(`Thank you for using File Manager, ${userName}, goodbye!\n`);
                 break;
             case 'up':
-                up();
+                if (!checkArguments(arg, 0)) {
+                    console.log('Invalid input\n');
+                } else {
+                    up();
+                }
                 break;
             case 'cd':
-                cd(arg[0]);
+                if (!checkArguments(arg, 1)) {
+                    console.log('Invalid input\n');
+                } else {
+                    cd(arg[0]);
+                }
                 break;
             case 'ls':
-                ls();
+                if (!checkArguments(arg, 0)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await ls();
+                }
                 break;
             case 'cat':
-                console.log('cat');
+                if (!checkArguments(arg, 1)) {
+                    console.log('Invalid input\n');
+                } else {
+                    await cat(arg[0]);
+                }
                 break;
             case 'add':
                 console.log('add');
@@ -106,3 +123,7 @@ function showCurrentFolder() {
     console.log(`You are currently in ${folderPath}`);
 }
 
+function checkArguments(arg, size) {
+    if (arg.length === size) return true;
+    return false;
+}
