@@ -1,6 +1,6 @@
 import { createReadStream, createWriteStream } from 'node:fs';
 import { resolve } from 'node:path';
-import { Unzip } from 'node:zlib';
+import { createBrotliDecompress } from 'node:zlib';
 
 export const decompress = async (fileFromPath, fileToPath) => {
     try {
@@ -15,7 +15,7 @@ export const decompress = async (fileFromPath, fileToPath) => {
             console.error('Invalid input of source');
             console.error(`Operation failed`);
         });
-        stream.pipe(Unzip()).pipe(outStream);
+        stream.pipe(createBrotliDecompress()).pipe(outStream);
     } catch (err) {
         console.error(`Operation failed`);
     }
