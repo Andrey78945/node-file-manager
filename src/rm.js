@@ -8,3 +8,5 @@ export const rm = async (filePath) => {
         console.error(`Operation failed`);
     }
 };
+
+export default rm;

@@ -1,5 +1,5 @@
-import rm from './rm'
-import cp from './cp'
+import rm from './rm.js'
+import cp from './cp.js'
 
 export const mv = async (pathFrom, pathTo) => {
     try {

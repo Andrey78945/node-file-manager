@@ -21,3 +21,5 @@ export const cp = async (from, to) => {
         console.error(`Operation failed`);
     }
 };
+
+export default cp;
