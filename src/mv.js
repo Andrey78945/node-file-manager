@@ -3,8 +3,7 @@ import cp from './cp.js'
 
 export const mv = async (pathFrom, pathTo) => {
     try {
-        await cp(pathFrom, pathTo);
-        await rm(pathFrom);
+        cp(pathFrom, pathTo).then(rm(pathFrom));
     } catch (err) {
         console.error(`Operation failed`);
     }
